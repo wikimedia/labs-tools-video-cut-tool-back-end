@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // addition we make
@@ -14,6 +15,9 @@ var passport = require( "passport" ),
     MediaWikiStrategy = require( "passport-mediawiki-oauth" ).OAuthStrategy,
     session = require( "express-session" );
 
+mongoose.connect(config.DB_CONNECTION_URL)
+const UserModel = require('./models/User');
+const VideoModel = require('./models/Video');
 // view engine setup
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -22,8 +26,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/video-cut-tool-back-end/public', express.static(path.join(__dirname, 'public')));
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '500mb' }));
+app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
 app.use(cookieParser());
 
 // Use CORS and File Upload modules here
@@ -31,7 +35,7 @@ app.use(cors());
 app.use(fileUpload({
   useTempFiles : true,
   tempFileDir : 'tmp/', // so that they're publicly accessable
-  limits: { fileSize: 50 * 1024 * 1024 },
+  limits: { fileSize: 500 * 1024 * 1024 },
   abortOnLimit: true
 }));
 
