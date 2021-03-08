@@ -15,7 +15,7 @@ var passport = require( "passport" ),
     MediaWikiStrategy = require( "passport-mediawiki-oauth" ).OAuthStrategy,
     session = require( "express-session" );
 
-mongoose.connect(config.DB_CONNECTION_URL)
+mongoose.connect(config.DB_CONNECTION_URL,{ useNewUrlParser: true });
 const UserModel = require('./models/User');
 const VideoModel = require('./models/Video');
 // view engine setup
