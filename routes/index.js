@@ -45,6 +45,8 @@ router.post('/video-cut-tool-back-end/video-cut-tool-back-end/send/upload', cont
 
 router.post('/video-cut-tool-back-end/video_processed', controller.onVideoProcessed);
 router.post('/video_processed', controller.onVideoProcessed);
+router.post('/video-cut-tool-back-end/video_progress', controller.onVideoProgress);
+router.post('/video_progress', controller.onVideoProgress);
 
 router.get('/download/public/:videopath', function(req, res){
 	const file = 'public/'+req.params.videopath;

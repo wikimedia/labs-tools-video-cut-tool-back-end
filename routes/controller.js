@@ -206,7 +206,20 @@ module.exports = {
         }
     },
 
-
+    onVideoProgress: (req, res) => {
+        const { video_id, progress_info } = req.body;
+        const io = require('../websockets')();
+        VideoModel.findById(video_id).populate('uploadedBy')
+        .then((video) => {
+            if (video && video.uploadedBy) {
+                io.to(video.uploadedBy.socketId).emit('progress:updateBar', { progress_info });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        res.send('done');
+    },
     onVideoProcessed: (req, res) => {
         const { videoId } = req.body;
         const videos = Array.isArray(req.files.videos) ? req.files.videos : [req.files.videos];
