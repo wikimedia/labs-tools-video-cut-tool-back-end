@@ -70,15 +70,15 @@ router.get("/", function (req, res) {
 });
 
 router.get('/video-cut-tool-back-end/video-cut-tool-back-end/auth/mediawiki/callback', passport.authenticate('mediawiki', {
-	failureRedirect: '/login',
+	failureRedirect: '/login'
 }), controller.authCallback)
 
 router.get('/video-cut-tool-back-end/auth/mediawiki/callback', passport.authenticate('mediawiki', {
-	failureRedirect: '/login',
+	failureRedirect: '/login'
 }), controller.authCallback)
 
 router.get('/auth/mediawiki/callback', passport.authenticate('mediawiki', {
-	failureRedirect: '/login',
+	failureRedirect: '/login'
 }), controller.authCallback)
 
 module.exports = router;
